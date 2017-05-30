@@ -9,6 +9,26 @@ angular.module('myApp.view', ['ngRoute'])
   });
 }])
 
-.controller('ViewCtrl', [function() {
+.controller('ViewCtrl', ['$scope', function($scope) {
+  $scope.d3charts = [
+    "fisheye", "dashboard", "dom", "force", "circle"
+  ];
 
+  $scope.changeUrl = function(item) {
+    console.log(item);
+    switch(item) {
+      case 'fisheye':
+        return '#!/view1';
+      case 'dashboard':
+        return '#!/view2';
+      case 'dom':
+        return '#!/view3';
+      case 'force':
+        return '#!/view4';
+      case 'circle':
+        return '#!/view5';
+      default:
+        return '#!/view';
+    }
+  }
 }]);

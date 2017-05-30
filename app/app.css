@@ -1,5 +1,4 @@
 /* app css stylesheet */
-
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
@@ -160,4 +159,19 @@ td {
     font-size: 24px;
     font-weight: bold;
     color: lightblue;
+}
+
+.item-tag {
+  height: 150px;
+  width: 80%;
+  background: #fff;
+  margin-left: 10%;
+  margin-top: 50px;
+  text-align: center;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.intro-board {
+  background: #ffffff;
+  height: 200px;
 }
