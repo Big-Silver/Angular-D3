@@ -23,7 +23,6 @@ var sketch = d3.select("#dom_board").append("custom:sketch")
 
 // On each mouse move, create a circle that increases in size and fades away.
 d3.select("body").on("mousemove", function() {
-    console.log("sdfsdfsdfsdf");
     sketch.append("custom:circle")
       .attr("x", d3.event.clientX)
       .attr("y", d3.event.clientY)

@@ -154,3 +154,10 @@ td {
 	font-weight: bold;
 	/*font-style: italic;*/
 }
+
+.progress-meter text {
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: lightblue;
+}
