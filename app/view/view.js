@@ -11,24 +11,40 @@ angular.module('myApp.view', ['ngRoute'])
 
 .controller('ViewCtrl', ['$scope', function($scope) {
   $scope.d3charts = [
-    "fisheye", "dashboard", "dom", "force", "circle"
+    "Fisheye", "Dashboard", "Dom", "Force", "Circle"
   ];
 
   $scope.changeUrl = function(item) {
-    console.log(item);
     switch(item) {
-      case 'fisheye':
+      case 'Fisheye':
         return '#!/view1';
-      case 'dashboard':
+      case 'Dashboard':
         return '#!/view2';
-      case 'dom':
+      case 'Dom':
         return '#!/view3';
       case 'force':
         return '#!/view4';
-      case 'circle':
+      case 'Circle':
         return '#!/view5';
       default:
         return '#!/view';
     }
-  }
+  };
+
+  $scope.changeSrc = function(item) {
+    switch(item) {
+      case 'Fisheye':
+        return '../img/fisheye-d3.png';
+      case 'Dashboard':
+        return '../img/dashboard-d3.png';
+      case 'Dom':
+        return '../img/dom-d3.png';
+      case 'Force':
+        return '../img/force-d3.png';
+      case 'Circle':
+        return '../img/circle-d3.png';
+      default:
+        return '';
+    }
+  };
 }]);

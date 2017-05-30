@@ -1,11 +1,13 @@
 <div ng-controller="ViewCtrl">
-    <div class="col-xs-12 col-md-12 intro-board">
+    <div class="intro-board">
+        <img class="intro-img">
     </div>
     <div class="container">
         <div class="row">
             <div class="col-xs-6 col-md-4" ng-repeat="item in d3charts">
                 <div class="item-tag">
                     <a ng-href="{{changeUrl(item)}}">{{item}}</a>
+                    <img class="item-img" ng-src="{{changeSrc(item)}}">
                 </div>
             </div>
         </div>

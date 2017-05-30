@@ -173,5 +173,34 @@ td {
 
 .intro-board {
   background: #ffffff;
-  height: 200px;
+  width: 100%;
+  height: 350px;
+}
+
+.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+.node circle {
+  fill: #ccc;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+text {
+  font: 10px sans-serif;
+  pointer-events: none;
+}
+
+.intro-img {
+  width: 100%;
+  height: 100%;
+  content: url("../img/background.jpg");
+}
+
+.item-img {
+  width: 90%;
+  height: 80%;
 }
