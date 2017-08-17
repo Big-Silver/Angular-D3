@@ -9,10 +9,15 @@ angular.module('myApp', [
   'myApp.view3',
   'myApp.view4',
   'myApp.view5',
-  'myApp.version'
-]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+  'myApp.version',
+  'ngMaterial'
+])
+
+.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
 
   $routeProvider.otherwise({redirectTo: '/view'});
+}])
+
+.controller('TitleController', ['$scope', '$location', function($scope, $location) {
 }]);

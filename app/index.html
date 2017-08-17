@@ -25,15 +25,32 @@
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>  
   </head>
   <body>
-    
-    <ul class="menu">
-      <li><a href="#!/view">First Page</a></li>    
-    </ul>
 
     <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
+    <md-nav-bar
+      md-selected-nav-item="currentNavItem"
+      nav-bar-aria-label="navigation links">
+      <md-nav-item md-nav-click="goto('page1')" name="page1">
+        Home
+      </md-nav-item>
+      <md-nav-item md-nav-click="goto('page2')" name="page2">
+        Page Two
+      </md-nav-item>
+      <md-nav-item md-nav-click="goto('page3')" name="page3">
+        Page Three
+      </md-nav-item>
+      <!-- these require actual routing with ui-router or ng-route, so they
+      won't work in the demo
+      <md-nav-item md-nav-href="#page4" name="page5">Page Four</md-nav-item>
+      <md-nav-item md-nav-sref="app.page5" name="page4">Page Five</md-nav-item>
+      You can also add options for the <code>ui-sref-opts</code> attribute.
+      <md-nav-item md-nav-sref="page6" sref-opts="{reload:true, notify:true}">
+        Page Six
+      </md-nav-item>
+      -->
+    </md-nav-bar>
     <div ng-view></div>  
 
     <!-- In production use:
