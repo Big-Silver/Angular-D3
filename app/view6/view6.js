@@ -10,94 +10,100 @@ angular.module('myApp.view6', ['ngRoute'])
 }])
 
 .controller('View6Ctrl', [function() {
-var colors = {
-    'pink': '#E1499A',
-    'yellow': '#f0ff08',
-    'green': '#47e495'
-};
+var width = 960,
+    height = 500,
+    padding = 1.5, // separation between same-color circles
+    clusterPadding = 6, // separation between different-color circles
+    maxRadius = 12;
 
-var color = colors.pink;
+var n = 200, // total number of circles
+    m = 10; // number of distinct clusters
 
-var radius = 100;
-var border = 5;
-var padding = 30;
-var startPercent = 0;
-var endPercent = 0.85;
+var color = d3.scale.category10()
+    .domain(d3.range(m));
 
+// The largest node for each cluster.
+var clusters = new Array(m);
 
-var twoPi = Math.PI * 2;
-var formatPercent = d3.format('.0%');
-var boxSize = (radius + padding) * 2;
+var nodes = d3.range(n).map(function() {
+  var i = Math.floor(Math.random() * m),
+      r = Math.sqrt((i + 1) / m * -Math.log(Math.random())) * maxRadius,
+      d = {cluster: i, radius: r};
+  if (!clusters[i] || (r > clusters[i].radius)) clusters[i] = d;
+  return d;
+});
 
+var force = d3.layout.force()
+    .nodes(nodes)
+    .size([width, height])
+    .gravity(.02)
+    .charge(0)
+    .on("tick", tick)
+    .start();
 
-var count = Math.abs((endPercent - startPercent) / 0.01);
-var step = endPercent < startPercent ? -0.01 : 0.01;
+var svg = d3.select("#cluster").append("svg")
+    .attr("width", width)
+    .attr("height", height);
 
-var arc = d3.svg.arc()
-    .startAngle(0)
-    .innerRadius(radius)
-    .outerRadius(radius - border);
+var circle = svg.selectAll("circle")
+    .data(nodes)
+  .enter().append("circle")
+    .attr("r", function(d) { return d.radius; })
+    .style("fill", function(d) { return color(d.cluster); })
+    .call(force.drag);
 
-var parent = d3.select('div#content');
-
-var svg = parent.append('svg')
-    .attr('width', boxSize)
-    .attr('height', boxSize);
-
-var defs = svg.append('defs');
-
-var filter = defs.append('filter')
-    .attr('id', 'blur');
-
-filter.append('feGaussianBlur')
-    .attr('in', 'SourceGraphic')
-    .attr('stdDeviation', '7');
-
-var g = svg.append('g')
-    .attr('transform', 'translate(' + boxSize / 2 + ',' + boxSize / 2 + ')');
-
-var meter = g.append('g')
-    .attr('class', 'progress-meter');
-
-meter.append('path')
-    .attr('class', 'background')
-    .attr('fill', '#ccc')
-    .attr('fill-opacity', 0.5)
-    .attr('d', arc.endAngle(twoPi));
-
-var foreground = meter.append('path')
-    .attr('class', 'foreground')
-    .attr('fill', color)
-    .attr('fill-opacity', 1)
-    .attr('stroke', color)
-    .attr('stroke-width', 5)
-    .attr('stroke-opacity', 1)
-    .attr('filter', 'url(#blur)');
-
-var front = meter.append('path')
-    .attr('class', 'foreground')
-    .attr('fill', color)
-    .attr('fill-opacity', 1);
-
-var numberText = meter.append('text')
-    .attr('text-anchor', 'middle')
-    .attr('dy', '.35em');
-
-function updateProgress(progress) {
-    foreground.attr('d', arc.endAngle(twoPi * progress));
-    front.attr('d', arc.endAngle(twoPi * progress));
-    numberText.text(formatPercent(progress));
+function tick(e) {
+  circle
+      .each(cluster(10 * e.alpha * e.alpha))
+      .each(collide(.5))
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
 }
 
-var progress = startPercent;
-
-(function loops() {
-    updateProgress(progress);
-
-    if (count > 0) {
-        count--;
-        progress += step;
-        setTimeout(loops, 10);
+// Move d to be adjacent to the cluster node.
+function cluster(alpha) {
+  return function(d) {
+    var cluster = clusters[d.cluster];
+    if (cluster === d) return;
+    var x = d.x - cluster.x,
+        y = d.y - cluster.y,
+        l = Math.sqrt(x * x + y * y),
+        r = d.radius + cluster.radius;
+    if (l != r) {
+      l = (l - r) / l * alpha;
+      d.x -= x *= l;
+      d.y -= y *= l;
+      cluster.x += x;
+      cluster.y += y;
     }
-})();
+  };
+}
+
+// Resolves collisions between d and all other circles.
+function collide(alpha) {
+  var quadtree = d3.geom.quadtree(nodes);
+  return function(d) {
+    var r = d.radius + maxRadius + Math.max(padding, clusterPadding),
+        nx1 = d.x - r,
+        nx2 = d.x + r,
+        ny1 = d.y - r,
+        ny2 = d.y + r;
+    quadtree.visit(function(quad, x1, y1, x2, y2) {
+      if (quad.point && (quad.point !== d)) {
+        var x = d.x - quad.point.x,
+            y = d.y - quad.point.y,
+            l = Math.sqrt(x * x + y * y),
+            r = d.radius + quad.point.radius + (d.cluster === quad.point.cluster ? padding : clusterPadding);
+        if (l < r) {
+          l = (l - r) / l * alpha;
+          d.x -= x *= l;
+          d.y -= y *= l;
+          quad.point.x += x;
+          quad.point.y += y;
+        }
+      }
+      return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+    });
+  };
+}
 }]);
