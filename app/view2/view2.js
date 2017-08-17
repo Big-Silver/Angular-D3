@@ -116,7 +116,7 @@ function dsPieChart(){
 		vis.append("svg:text")
 	     	.attr("dy", ".35em")
 	      .attr("text-anchor", "middle")
-	      .text("Revenue Share 2012")
+	      .text("Big Silver 2017")
 	      .attr("class","title")
 	      ;		    
 

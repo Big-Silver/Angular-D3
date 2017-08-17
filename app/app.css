@@ -168,6 +168,7 @@ td {
   margin-left: 10%;
   margin-top: 50px;
   text-align: center;
+  cursor: pointer;
   box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
 }
 
@@ -201,6 +202,10 @@ text {
 }
 
 .item-img {
-  width: 90%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
+}
+
+.carddemoBasicUsage .card-media {
+  background-color: #999999; 
 }

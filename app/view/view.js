@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.view', ['ngRoute'])
+angular.module('myApp.view', ['ngRoute', 'ngMaterial'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view', {
@@ -9,25 +9,39 @@ angular.module('myApp.view', ['ngRoute'])
   });
 }])
 
-.controller('ViewCtrl', ['$scope', function($scope) {
+.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
+  $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
+  $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
+  $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+})
+
+.controller('ViewCtrl', ['$scope', '$location', function($scope, $location) {
   $scope.d3charts = [
     "Fisheye", "Dashboard", "Dom", "Force", "Circle"
   ];
 
   $scope.changeUrl = function(item) {
+    console.log(item);
     switch(item) {
       case 'Fisheye':
-        return '#!/view1';
+        $location.path('/view1');
+        return;
       case 'Dashboard':
-        return '#!/view2';
+        $location.path('/view2');
+        return;
       case 'Dom':
-        return '#!/view3';
-      case 'force':
-        return '#!/view4';
+        $location.path('/view3');
+        return;
+      case 'Force':
+        $location.path('/view4');
+        return;
       case 'Circle':
-        return '#!/view5';
+        $location.path('/view5');
+        return;
       default:
-        return '#!/view';
+        $location.path('/view');
+        return;
     }
   };
 
