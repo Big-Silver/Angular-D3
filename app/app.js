@@ -9,6 +9,7 @@ angular.module('myApp', [
   'myApp.view3',
   'myApp.view4',
   'myApp.view5',
+  'myApp.view6',
   'myApp.version',
   'ngMaterial'
 ])
@@ -20,4 +21,34 @@ angular.module('myApp', [
 }])
 
 .controller('TitleController', ['$scope', '$location', function($scope, $location) {
+  $scope.total_pages = [
+    "Home", "Fisheye", "Dashboard", "Dom", "Force", "Circle"
+  ];
+  $scope.currentNavItem = 'page1';
+  $scope.changeUrl = function(item) {
+    console.log(item);
+    switch(item) {
+      case 'Fisheye':
+        $location.path('/view1');
+        return;
+      case 'Dashboard':
+        $location.path('/view2');
+        return;
+      case 'Dom':
+        $location.path('/view3');
+        return;
+      case 'Force':
+        $location.path('/view4');
+        return;
+      case 'Circle':
+        $location.path('/view5');
+        return;
+      case 'Cluster':
+        $location.path('/view6');
+        return;
+      default:
+        $location.path('/view');
+        return;
+    }
+  };
 }]);

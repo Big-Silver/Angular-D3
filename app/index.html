@@ -29,28 +29,31 @@
     <!--[if lt IE 7]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <md-nav-bar
-      md-selected-nav-item="currentNavItem"
-      nav-bar-aria-label="navigation links">
-      <md-nav-item md-nav-click="goto('page1')" name="page1">
-        Home
-      </md-nav-item>
-      <md-nav-item md-nav-click="goto('page2')" name="page2">
-        Page Two
-      </md-nav-item>
-      <md-nav-item md-nav-click="goto('page3')" name="page3">
-        Page Three
-      </md-nav-item>
-      <!-- these require actual routing with ui-router or ng-route, so they
-      won't work in the demo
-      <md-nav-item md-nav-href="#page4" name="page5">Page Four</md-nav-item>
-      <md-nav-item md-nav-sref="app.page5" name="page4">Page Five</md-nav-item>
-      You can also add options for the <code>ui-sref-opts</code> attribute.
-      <md-nav-item md-nav-sref="page6" sref-opts="{reload:true, notify:true}">
-        Page Six
-      </md-nav-item>
-      -->
-    </md-nav-bar>
+    <div ng-controller="TitleController">
+      <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-click="changeUrl('home')" name="page1">
+          Home
+        </md-nav-item>
+        <md-nav-item md-nav-click="changeUrl('Fisheye')" name="page2">
+          Fisheye
+        </md-nav-item>
+        <md-nav-item md-nav-click="changeUrl('Dashboard')" name="page3">
+          Dashboard
+        </md-nav-item>
+        <md-nav-item md-nav-click="changeUrl('Dom')" name="page4">
+          Dom
+        </md-nav-item>
+        <md-nav-item md-nav-click="changeUrl('Force')" name="page5">
+          Force
+        </md-nav-item>
+        <md-nav-item md-nav-click="changeUrl('Circle')" name="page6">
+          Circle
+        </md-nav-item>
+        <md-nav-item md-nav-click="changeUrl('Cluster')" name="page7">
+          Cluster
+        </md-nav-item>
+      </md-nav-bar>
+    </div>
     <div ng-view></div>  
 
     <!-- In production use:
@@ -67,6 +70,7 @@
     <script src="view3/view3.js"></script>
     <script src="view4/view4.js"></script>
     <script src="view5/view5.js"></script>
+    <script src="view6/view6.js"></script>
     <script src="components/version/version.js"></script>
     <script src="components/version/version-directive.js"></script>
     <script src="components/version/interpolate-filter.js"></script>

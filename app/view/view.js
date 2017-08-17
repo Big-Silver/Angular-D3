@@ -18,7 +18,7 @@ angular.module('myApp.view', ['ngRoute', 'ngMaterial'])
 
 .controller('ViewCtrl', ['$scope', '$location', function($scope, $location) {
   $scope.d3charts = [
-    "Fisheye", "Dashboard", "Dom", "Force", "Circle"
+    "Fisheye", "Dashboard", "Dom", "Force", "Circle", "Cluster"
   ];
 
   $scope.changeUrl = function(item) {
@@ -39,6 +39,9 @@ angular.module('myApp.view', ['ngRoute', 'ngMaterial'])
       case 'Circle':
         $location.path('/view5');
         return;
+      case 'Cluster':
+        $location.path('/view6');
+        return;
       default:
         $location.path('/view');
         return;
@@ -57,6 +60,8 @@ angular.module('myApp.view', ['ngRoute', 'ngMaterial'])
         return '../img/force-d3.png';
       case 'Circle':
         return '../img/circle-d3.png';
+      case 'Circle':
+        return '../img/cluster-d3.png';
       default:
         return '';
     }
